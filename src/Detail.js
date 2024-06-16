@@ -13,20 +13,21 @@ function Detail()
   //消息存储 - 发送和接受消息
   const [messages, setMessages] = useState({
     1: [
-      { text: 'Hello Alice!', sender: 'received', timestamp: '2024-06-01T12:00:00Z' },
-      { text: 'How are you?', sender: 'sent', timestamp: '2024-06-01T12:01:00Z' }
+      {id: 1, text: 'Hello 小E!', sender: 'received', timestamp: '2024-06-01T12:00:00Z' },
+      {id: 1, text: '小A，How are you?', sender: 'sent', timestamp: '2024-06-01T12:01:00Z' },
+      {id: 1, text: 'I want to play with you, can I ?', sender: 'received', timestamp: '2024-06-01T12:05:00Z' },
     ],
     2: [
-      { text: 'Hi Bob!', sender: 'received', timestamp: '2024-06-01T12:02:00Z' },
-      { text: 'What\'s up?', sender: 'sent', timestamp: '2024-06-01T12:03:00Z' }
+      {id: 2, text: 'okkk', sender: 'received', timestamp: '2024-06-01T12:02:00Z' },
+      {id: 2, text: 'Hi Bob!', sender: 'sent', timestamp: '2024-06-01T12:00:00Z' }
     ],
     3: [
-      { text: 'Hey Charlie!', sender: 'received', timestamp: '2024-06-01T12:04:00Z' },
-      { text: 'Long time no see!', sender: 'sent', timestamp: '2024-06-01T12:05:00Z' }
+      {id: 3, text: 'Hey Charlie!', sender: 'sent', timestamp: '2024-06-01T12:04:00Z' },
+      {id: 3, text: 'Long time no see!', sender: 'received', timestamp: '2024-06-01T12:05:00Z' }
     ],
     4: [
-      { text: 'Oh, D are handsome!', sender: 'received', timestamp: '2024-06-01T15:04:00Z' },
-      { text: 'Thank you!', sender: 'sent', timestamp: '2024-06-01T15:15:00Z' }
+      {id: 4, text: 'Oh, D are handsome!', sender: 'sent', timestamp: '2024-06-01T15:04:00Z' },
+      {id: 4, text: 'Thank you!', sender: 'received', timestamp: '2024-06-01T15:15:00Z' }
     ],
   });
   const [inputValue, setInputValue] = useState('');//发送框
@@ -74,7 +75,16 @@ function Detail()
             <h2>{contacts.find(contact => contact.id === selectedContact).name} chat area</h2>
             <div className="messages" >
               {messages[selectedContact].map((message, index) => (
+                // 条件渲染
+                // 
                  <div key={index} className={message.sender === 'sent' ? 'message-sent':'message-received'}>
+                  {/* 如何取出对应id的头像 */}
+                  {message.sender === 'received' ?(
+                     <img src={contacts.find(contact => contact.id === selectedContact).imgUrl}  alt={contacts.find(contact => contact.id === selectedContact).name} className='contact-avatar'/>
+                  ) : (
+                    <img src={mineImg}  alt= '小E' className='contact-avatar'/>
+                  )}
+                 
                    <p className="message-text">{message.text}</p>
                    <p className="message-time">{new Date(message.timestamp).toLocaleString()}</p>
                 </div>
